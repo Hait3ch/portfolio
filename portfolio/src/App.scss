@@ -1,0 +1,515 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+@import "~bootstrap/scss/_functions";
+@import "~bootstrap/scss/_variables";
+@import "bootstrap/scss/_mixins";
+
+$primaryColor: #ffffff;
+$primaryRedColor: #e04b4b;
+
+// Header
+
+header {
+  position: relative;
+  height: 520px;
+  min-height: 500px;
+  width: 100%;
+  background: #282c34 url(./assets/images/amfi.png) no-repeat center center;
+  background-blend-mode: soft-light;
+  background-size: cover !important;
+  -webkit-background-size: cover !important;
+  text-align: center;
+  overflow: hidden;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+// BASIC TEXT STYLES
+p {
+  color: "#242424";
+  font-size: 16px;
+}
+
+// SETTINGS
+//
+//  MEDIA QUERIES
+//––––––––––––––––––––––––––––––––––––––––––––––––––
+
+// A map of breakpoints.
+$breakpoints: (
+  xs: 576px,
+  sm: 768px,
+  md: 992px,
+  lg: 1200px,
+);
+
+// Respond above.
+@mixin respond-above($breakpoint) {
+  // If the breakpoint exists in the map.
+  @if map-has-key($breakpoints, $breakpoint) {
+    // Get the breakpoint value.
+    $breakpoint-value: map-get($breakpoints, $breakpoint);
+
+    // Write the media query.
+    @media (min-width: $breakpoint-value) {
+      @content;
+    }
+
+    // If the breakpoint doesn't exist in the map.
+  } @else {
+    // Log a warning.
+    @warn 'Invalid breakpoint: #{$breakpoint}.';
+  }
+}
+
+@mixin respond-below($breakpoint) {
+  // If the breakpoint exists in the map.
+  @if map-has-key($breakpoints, $breakpoint) {
+    // Get the breakpoint value.
+    $breakpoint-value: map-get($breakpoints, $breakpoint);
+
+    // Write the media query.
+    @media (max-width: ($breakpoint-value - 1)) {
+      @content;
+    }
+
+    // If the breakpoint doesn't exist in the map.
+  } @else {
+    // Log a warning.
+    @warn 'Invalid breakpoint: #{$breakpoint}.';
+  }
+}
+// __________________________________________________________
+// STYLES
+// __________________________________________________________
+
+// General
+html {
+  scroll-behavior: smooth;
+}
+
+// Navbar
+
+.navbar-dark .navbar-nav .nav-link {
+  color: white !important;
+  font-size: x-large;
+  font-weight: 500;
+  &:hover {
+    // font-weight: bold;
+    color: #e04b4b !important;
+  }
+}
+
+.navbar-dark .navbar-nav .active > .nav-link,
+.navbar-dark .navbar-nav .nav-link.active,
+.navbar-dark .navbar-nav .nav-link.show,
+.navbar-dark .navbar-nav .show > .nav-link {
+  color: #e04b4b !important;
+  font-weight: bold;
+}
+
+// .fixed-top {
+//   background-color: blueviolet !important;
+// }
+
+.navbar.active {
+  background: rgb(68, 68, 68) !important; /* IE */
+  background: rgba(0, 0, 0, 0.78) !important; /* NON-IE */
+}
+
+.container {
+  position: relative;
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+// Carousel
+
+.carousel-intti-stats {
+  margin-top: 20%;
+  margin-bottom: 17%;
+  padding: 5% 5%;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 25px;
+}
+
+.carousel-indicators li {
+  background-color: #e04b4b !important;
+}
+
+// Contact
+
+.contact label {
+  font-size: xx-large;
+  font-weight: bold;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  padding-bottom: 10px;
+  display: inline-block;
+  margin-block-start: 0.83em;
+  margin-block-end: 0.83em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+// Footer
+.footer-container {
+  padding: 5%;
+  text-align: center;
+  height: 200px;
+  background-color: #f9f9f9;
+}
+
+.footer-container a {
+  font-size: 20px !important;
+  color: $primaryRedColor !important;
+}
+
+.footer-container a:hover {
+  // font-size: 40px !important;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+// ****************************************************************************
+//
+// SMALLER SCREEN
+//
+// ****************************************************************************
+
+@include respond-below(sm) {
+  // Navbar
+
+  .navbar-background {
+    background-color: rgba(0, 0, 0, 0.78);
+  }
+
+  // Header
+
+  header {
+    position: relative;
+    height: 520px;
+    min-height: 500px;
+    width: 100%;
+    background: #282c34 url(./assets/images/amfi.png) no-repeat top right -200px;
+
+    background-blend-mode: soft-light;
+    background-size: cover !important;
+    -webkit-background-size: cover !important;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  // Header Texts
+  .centered {
+    position: relative;
+    text-align: center;
+    padding-top: 40%;
+    margin-left: 5%;
+    margin-right: 5%;
+    color: #ffffff;
+  }
+
+  // About
+
+  .about .grid-container {
+    flex-flow: column-reverse;
+    display: flex;
+  }
+
+  .grid-50-img {
+    position: relative;
+    height: 400px;
+    min-height: 400px;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    order: 1;
+  }
+
+  .grid-img {
+    max-width: 100%;
+  }
+
+  .grid-50-text {
+    position: relative;
+    height: auto;
+    padding-top: 5%;
+    min-height: 200px;
+    width: 100%;
+    order: 2;
+  }
+
+  .about-text {
+    margin: auto;
+    padding: 5% 10%;
+    font-weight: 500;
+    font-size: 22px;
+  }
+
+  .about-text h2 {
+    font-weight: bold;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: 10px;
+    display: inline-block;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+  }
+
+  // Project
+
+  .project .reverse {
+    flex-direction: column-reverse;
+    display: flex;
+  }
+
+  // Contact
+
+  .contact {
+    text-align: center;
+    flex-direction: column;
+    background-color: #f9f9f9;
+    color: $primaryRedColor;
+  }
+
+  .contact .cont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  .contact .title {
+    margin-top: 5%;
+  }
+
+  .contact .email {
+    padding: 2%;
+    width: 100%;
+  }
+
+  .contact .email-field {
+    width: 90%;
+    display: block;
+    outline: none;
+    padding: 10px 10px;
+    border: 1px solid #888;
+
+    border-radius: 10px;
+  }
+  .contact .message-field {
+    width: 90%;
+    height: 100px;
+    display: block;
+    outline: none;
+    border: 1px solid #888;
+    border-radius: 10px;
+    padding: 10px 10px;
+  }
+
+  .contact h1 {
+    font-weight: bold;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+    padding-bottom: 10px;
+    display: inline-block;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+  }
+
+  .contact h3 {
+    font-weight: bold;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    padding-bottom: 10px;
+    display: inline-block;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+  }
+
+  .contact .submit-button {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}
+
+// ****************************************************************************
+//
+// LARGER SCREEN
+//
+// ****************************************************************************
+
+@include respond-above(sm) {
+  // Header texts
+  .centered {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ffffff;
+  }
+
+  // About
+
+  .about {
+    // font-family: "poppins", sans-serif;
+    font-weight: 300 !important;
+    font-size: 17px;
+    overflow: hidden;
+  }
+
+  .about .grid-container {
+    overflow: overlay;
+  }
+
+  .grid-50-img {
+    position: relative;
+    min-height: 550px;
+    float: left;
+    width: 50%;
+    position: relative;
+  }
+  .grid-img {
+    max-height: 100%;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+  .about .grid-50-text {
+    position: relative;
+    // height: 550px;
+    min-height: 520px;
+    float: left;
+    width: 50%;
+  }
+
+  .about-text {
+    margin: auto;
+    padding: 5% 10%;
+    font-weight: 500;
+    font-size: 22px;
+  }
+
+  .about-text h2 {
+    font-weight: bold;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: 10px;
+    display: inline-block;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+  }
+
+  .centered {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ffffff;
+  }
+
+  // Project
+
+  .project .grid-container {
+    overflow: overlay;
+  }
+
+  .project .grid-50-text {
+    position: relative;
+    float: left;
+    width: 50%;
+  }
+
+  .project .about-text {
+    margin: auto;
+    padding: 5% 10%;
+    font-weight: 500;
+    font-size: 22px;
+  }
+
+  // Contact
+
+  .contact {
+    text-align: center;
+    flex-direction: column;
+    background-color: #f9f9f9;
+    color: $primaryRedColor;
+  }
+
+  .contact .cont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  .contact .title {
+    margin-top: 10%;
+  }
+
+  .contact .email {
+    padding: 2%;
+    width: 100%;
+  }
+
+  .contact .email-field {
+    width: 50%;
+    display: block;
+    outline: none;
+    padding: 10px 10px;
+    border: 1px solid #888;
+
+    border-radius: 10px;
+  }
+  .contact .message-field {
+    width: 50%;
+    height: 100px;
+    display: block;
+    outline: none;
+    border: 1px solid #888;
+    border-radius: 10px;
+    padding: 10px 10px;
+  }
+
+  .contact h1 {
+    font-weight: bold;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+    padding-bottom: 10px;
+    display: inline-block;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+  }
+
+  .contact h3 {
+    font-weight: bold;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    padding-bottom: 10px;
+    display: inline-block;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+  }
+
+  .contact .submit-button {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}
