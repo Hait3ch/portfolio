@@ -1,3 +1,7 @@
-# portfolio
+# Portfolio
 
-Visit the site: www.haiphan.fi
+Visit the website: www.haiphan.fi
+
+# Setup
+npm i
+npm run start
