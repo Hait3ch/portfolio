@@ -2,11 +2,18 @@
 
 Visit the website: www.haiphan.fi
 
-# Setup
+![Screenshot](https://i.imgur.com/quUcKQa.jpg)
 
+## Install
 Start by installing dependencies
-### npm i
+````bash
+npm i
+````
 
 You will need firebase config which is found from firebase console > settings > Web app > Config
 
-### npm run start
+
+## How to run
+````
+npm run start
+````
