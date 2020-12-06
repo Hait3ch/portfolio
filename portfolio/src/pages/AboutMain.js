@@ -35,33 +35,15 @@ class AboutMain extends Component {
                 </p>
                 <p>
                   I am seeking for challenge outside of ServiceNow environment
-                  and am looking for a job in a full-stack or front-end
+                  and am looking for a job in a full-stack, mobile- or front-end
                   developer position. I am specialised in{" "}
-                  <b>JavaScript, React js, Dart </b>
-                  languages.
+                  <b>JavaScript, React js, Dart, Android Studio.</b>
                 </p>
               </div>
             </div>
           </div>
         </div>
       </section>
-      /*   <div className="App" id="about">
-          <header className="App-header">
-            <h1>About</h1>
-
-            <p>
-              Edit <code>src/App.js</code> and save to reload.
-             </p>
-            <a
-              className="App-link"
-              href="https://reactjs.org"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn React
-             </a>
-          </header>
-        </div> */
     );
   }
 }
