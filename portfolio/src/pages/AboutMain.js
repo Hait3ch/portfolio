@@ -7,10 +7,14 @@ class AboutMain extends Component {
         <div className="about">
           <div className="grid-container">
             <div className="grid-50-img">
-              <img src={hai} alt="asd" className="grid-img"></img>
+              <img
+                src={hai}
+                alt="profile"
+                className="grid-img show-on-scroll"
+              ></img>
             </div>
-            <div className="grid-50-text">
-              <div className="about-text">
+            <div className="grid-50-text show-on-scroll">
+              <div className="about-text ">
                 <h2>About</h2>
                 <p>
                   I graduated from <b>Aalto University</b> in the field of

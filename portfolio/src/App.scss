@@ -177,6 +177,57 @@ html {
   text-decoration: none;
 }
 
+// // Fade In/Out Scroll
+
+// Header Texts
+.centered {
+  position: relative;
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10%;
+  color: #ffffff;
+  animation: fadein 3s;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+    transform: translateY(-4em);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0em);
+  }
+}
+
+.grid-50-text.show-on-scroll {
+  opacity: 0;
+  transform: translateX(-4em);
+  transition: transform 2s 0.25s cubic-bezier(0, 1, 0.3, 1),
+    opacity 0.3s 0.25s ease-out;
+}
+
+.grid-50-text.show-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateX(0em);
+  transition: transform 2s 0.25s cubic-bezier(0, 1, 0.3, 1),
+    opacity 0.3s 0.25s ease-out;
+}
+
+.grid-img.show-on-scroll {
+  opacity: 0;
+  transform: translateX(-4em);
+  transition: transform 2s 0.25s cubic-bezier(0, 1, 0.3, 1),
+    opacity 0.3s 0.25s ease-out;
+}
+.grid-img.show-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateX(0em);
+  transition: transform 2s 0.25s cubic-bezier(0, 1, 0.3, 1),
+    opacity 0.3s 0.25s ease-out;
+}
+
 // ****************************************************************************
 //
 // SMALLER SCREEN
@@ -210,10 +261,11 @@ html {
   .centered {
     position: relative;
     text-align: center;
-    padding-top: 40%;
+    padding-top: 30%;
     margin-left: 5%;
     margin-right: 5%;
     color: #ffffff;
+    width: 90%;
   }
 
   // About
@@ -349,14 +401,14 @@ html {
 // ****************************************************************************
 
 @include respond-above(sm) {
-  // Header texts
-  .centered {
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #ffffff;
-  }
+  // // Header texts
+  // .centered {
+  //   position: absolute;
+  //   top: 40%;
+  //   left: 50%;
+  //   transform: translate(-50%, -50%);
+  //   color: #ffffff;
+  // }
 
   // About
 
@@ -416,13 +468,18 @@ html {
     margin-inline-end: 0px;
   }
 
-  .centered {
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #ffffff;
-  }
+  // .centered {
+  //   position: absolute;
+  //   top: 40%;
+  //   left: 50%;
+  //   transform: translate(-50%, -50%);
+  //   color: #ffffff;
+  //   // -webkit-animation: fadein 6s; /* Safari, Chrome and Opera > 12.1 */
+  //   // -moz-animation: fadein 2s; /* Firefox < 16 */
+  //   // -ms-animation: fadein 2s; /* Internet Explorer */
+  //   // -o-animation: fadein 2s; /* Opera < 12.1 */
+  //   // animation: fadein 4s;
+  // }
 
   // Project
 

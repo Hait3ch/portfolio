@@ -13,7 +13,7 @@ class Projects extends Component {
       <section id="projects">
         <div className="project">
           <div className="grid-container">
-            <div className="grid-50-text">
+            <div className="grid-50-text show-on-scroll">
               <div className="about-text">
                 <h2>Projects: Portfolio</h2>
                 <p>
@@ -37,7 +37,7 @@ class Projects extends Component {
                 </a>
               </div>
             </div>
-            <div className="grid-50-text">
+            <div className="grid-50-text show-on-scroll">
               <Carousel>
                 <Carousel.Item>
                   <img className="d-block w-100" src={mac} alt="First slide" />
@@ -54,7 +54,7 @@ class Projects extends Component {
 
             {/* Project Nro 2 */}
             <div className="reverse">
-              <div className="grid-50-text">
+              <div className="grid-50-text show-on-scroll">
                 <Carousel>
                   <Carousel.Item>
                     <img
@@ -89,7 +89,7 @@ class Projects extends Component {
                 </Carousel>
               </div>
 
-              <div className="grid-50-text">
+              <div className="grid-50-text show-on-scroll">
                 <div className="about-text">
                   <h2>Projects: Intti Quiz</h2>
                   <p>
