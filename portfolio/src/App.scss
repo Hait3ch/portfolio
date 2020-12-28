@@ -569,3 +569,15 @@ html {
     margin-bottom: 20px;
   }
 }
+
+// Team builder/Teambuilder
+
+.playerCard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 10px;
+  padding: 10px;
+  border: rgb(184, 184, 184) solid 1px;
+}
