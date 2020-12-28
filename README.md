@@ -10,10 +10,12 @@ Start by installing dependencies
 npm i
 ````
 
-You will need firebase config which is found from firebase console > settings > Web app > Config
-
-
 ## How to run
 ````
-npm run start
+npm start
 ````
+
+
+Firebase config can be found from firebase console > settings > Web app > Config
+
+
