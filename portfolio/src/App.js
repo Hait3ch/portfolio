@@ -85,7 +85,7 @@ function App() {
     <BrowserRouter>
       <div>
         <Route exact path="/" component={Root} />
-        <Route exact path="/teambuilder" component={TeamBuilder} />
+        <Route path="/teambuilder" component={TeamBuilder} />
         {/* <Route
         render={() => {
           return <p> Sivua ei löydy</p>;

@@ -59,12 +59,13 @@ admin.initializeApp();
 exports.addUser = functions.https.onRequest(async (req, res) => {
   const name = req.query.name;
   const skillLevel = req.query.skillLevel;
+  const uuid4 = req.query.uuid4;
 
-  await admin.firestore().collection("users").add({ name, skillLevel });
+  await admin.firestore().collection("users").add({ name, skillLevel, uuid4 });
 
   res.status(200).end();
 });
-
+/*
 exports.getUsers = functions.https.onRequest(async (req, res) => {
   await admin
     .firestore()
@@ -78,6 +79,7 @@ exports.getUsers = functions.https.onRequest(async (req, res) => {
 
   res.status(200).end();
 });
+*/
 
 // exports.deleteUser = functions.https.onRequest(async (req, res) => {
 //   await admin.firestore().collection("users").add({ name: "moi" });

@@ -576,8 +576,11 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
-  margin: 10px;
-  padding: 10px;
+  // flex-direction: column;
+  // margin: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+  width: 150px;
   border: rgb(184, 184, 184) solid 1px;
 }
