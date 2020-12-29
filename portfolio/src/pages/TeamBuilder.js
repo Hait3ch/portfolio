@@ -10,25 +10,28 @@ function TeamBuilder() {
   const [players, setPlayers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
+  const [team1, setTeam1] = useState([]);
+  const [team2, setTeam2] = useState([]);
 
   const ref = firebase.firestore().collection('users');
-  // console.log(ref.get());
 
   //ONE TIME GET FUNCTION
   function getPlayers() {
     setLoading(true);
-    ref.get().then((item) => {
-      const items = item.docs.map((doc) => doc.data());
-      setPlayers(items);
-      setLoading(false);
-    });
+    ref
+      .orderBy('name')
+      .get()
+      .then((item) => {
+        const items = item.docs.map((doc) => doc.data());
+        setPlayers(items);
+        setLoading(false);
+      });
   }
   useEffect(() => {
     getPlayers();
     // eslint-disable-next-line
   }, []);
 
-  // why const and not function, should others be functions too
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (name !== '') {
@@ -58,11 +61,31 @@ function TeamBuilder() {
     }
   };
 
+  const generateTeams = (event) => {
+    event.preventDefault();
+
+    setTeam1([]);
+    setTeam2([]);
+    // Sort with skill level
+    setSelectedPlayers(selectedPlayers.sort((a, b) => (a.skillLevel > b.skillLevel ? 1 : b.skillLevel > a.skillLevel ? -1 : 0)));
+    // console.log(selectedPlayers);
+
+    for (let index = 0; index < selectedPlayers.length; index++) {
+      console.log('Index is: ' + index);
+
+      if (index % 2 === 0) {
+        console.log('Team 1 ');
+        setTeam1((team1) => [...team1, selectedPlayers[index]]);
+      } else {
+        console.log('Team 2 ');
+        setTeam2((team2) => [...team2, selectedPlayers[index]]);
+      }
+    }
+  };
   return (
     <div id='teambuilder'>
       <NavigationBar></NavigationBar>
-      <div style={{ backgroundColor: 'blueviolet', height: 200 }}></div>
-
+      <div style={{ backgroundColor: 'blueviolet', height: 80 }}></div>
       <div>
         <form style={{ margin: 20 }}>
           <label>Add Player: </label>
@@ -71,6 +94,7 @@ function TeamBuilder() {
             <input
               name='name'
               type='text'
+              placeholder='Ultimate player'
               value={name}
               onChange={(e) => {
                 setName(e.target.value);
@@ -98,6 +122,8 @@ function TeamBuilder() {
               />
             </label> */}
           <input type='submit' value='Add' onClick={(e) => handleSubmit(e)} />
+          <input type='submit' value='Generate' onClick={(e) => generateTeams(e)} />
+
           {/* <input type="submit" value="Get" onClick={this.handleGetUsers} /> */}
           {/* {loading ? <h1>Loading...</h1> : <h1>Players loaded</h1>} */}
           <div style={{ display: 'flex', marginTop: '20px' }}>
@@ -110,12 +136,11 @@ function TeamBuilder() {
                   onClick={() => {
                     setSelectedPlayers((selectedPlayers) => [...selectedPlayers, player]);
                     setPlayers((players) => players.filter((selectedPlayer) => selectedPlayer.name !== player.name));
-                    // alert("✔️ Added player: " + player.name);
-                    console.log(selectedPlayers);
                   }}
                 >
-                  <h4>{player.name}</h4>
-                  <h4>{player.skillLevel}</h4>
+                  <h4>
+                    {player.name} {player.skillLevel}
+                  </h4>
                 </div>
               ))}
             </div>
@@ -132,16 +157,56 @@ function TeamBuilder() {
                     setSelectedPlayers((selectedPlayers) => selectedPlayers.filter((player) => selectedPlayer.name !== player.name)); // delete from selected player list
                   }}
                 >
-                  <h3>{selectedPlayer.name}</h3>
-                  <p>{selectedPlayer.skillLevel}</p>
+                  <h4>
+                    {selectedPlayer.name} {selectedPlayer.skillLevel}
+                  </h4>
                 </div>
               ))}
             </div>
             <div style={{ width: '20%' }}>
               <h3>Team 1</h3>
+              {team1.map((selectedPlayer) => (
+                <div
+                  className='playerCard'
+                  key={selectedPlayer.uuid4}
+                  onClick={() => {
+                    setPlayers((players) => [...players, selectedPlayer]); // adds selected player back to available list
+                    setSelectedPlayers((selectedPlayers) => selectedPlayers.filter((player) => selectedPlayer.name !== player.name)); // delete from selected player list
+                  }}
+                >
+                  <h4>
+                    {selectedPlayer.name} {selectedPlayer.skillLevel}
+                  </h4>
+                </div>
+              ))}
             </div>
             <div style={{ width: '20%' }}>
               <h3>Team 2</h3>
+              {team2.map((selectedPlayer) => (
+                <div
+                  className='playerCard'
+                  key={selectedPlayer.uuid4}
+                  onClick={() => {
+                    setPlayers((players) => [...players, selectedPlayer]); // adds selected player back to available list
+                    setSelectedPlayers((selectedPlayers) => selectedPlayers.filter((player) => selectedPlayer.name !== player.name)); // delete from selected player list
+                  }}
+                >
+                  <h4>
+                    {selectedPlayer.name} {selectedPlayer.skillLevel}
+                  </h4>
+                </div>
+              ))}
+            </div>
+            <div style={{ width: '20%' }}>
+              <h3>Generated Text</h3>
+              <b>Team 1 (Black shirt):</b>
+              {team1.map((player) => (
+                <h5>{player.name}</h5>
+              ))}
+              <b> Team 2 (White shirt):</b>
+              {team2.map((player) => (
+                <h5>{player.name}</h5>
+              ))}
             </div>
           </div>
         </form>
