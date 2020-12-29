@@ -109,6 +109,7 @@ function TeamBuilder() {
                   key={player.uuid4}
                   onClick={() => {
                     setSelectedPlayers((selectedPlayers) => [...selectedPlayers, player]);
+                    setPlayers((players) => players.filter((selectedPlayer) => selectedPlayer.name !== player.name));
                     // alert("✔️ Added player: " + player.name);
                     console.log(selectedPlayers);
                   }}
@@ -127,8 +128,8 @@ function TeamBuilder() {
                   className='playerCard'
                   key={selectedPlayer.uuid4}
                   onClick={() => {
-                    console.log(selectedPlayers);
-                    console.log(players);
+                    setPlayers((players) => [...players, selectedPlayer]); // adds selected player back to available list
+                    setSelectedPlayers((selectedPlayers) => selectedPlayers.filter((player) => selectedPlayer.name !== player.name)); // delete from selected player list
                   }}
                 >
                   <h3>{selectedPlayer.name}</h3>
