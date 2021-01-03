@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import NavigationBar from '../components/Navbar';
 import axios from 'axios';
 import firebase from '../firebase-config';
@@ -13,8 +13,17 @@ function TeamBuilder() {
   const [team1, setTeam1] = useState([]);
   const [team2, setTeam2] = useState([]);
   const [tgText, setTgText] = useState('');
+  const [copySuccess, setCopySuccess] = useState('');
+  const textAreaRef = useRef(null);
 
   const ref = firebase.firestore().collection('users');
+
+  function copyToClipboard(e) {
+    e.preventDefault();
+    textAreaRef.current.select();
+    document.execCommand('copy');
+    setCopySuccess('Copied!');
+  }
 
   //ONE TIME GET FUNCTION
   function getPlayers() {
@@ -201,9 +210,11 @@ function TeamBuilder() {
             </div>
             <div style={{ width: '20%' }}>
               <h3>Text to Telegram</h3>
-              <form>
-                <textarea rows='15' value={tgText} onChange={(e) => setTgText(e.target.value)} />
-              </form>
+              <textarea style={{ width: '100%' }} rows='15' ref={textAreaRef} value={tgText} onChange={(e) => setTgText(e.target.value)} />
+              <button style={{ width: '100%' }} onClick={copyToClipboard}>
+                Copy
+              </button>
+              {copySuccess}
             </div>
           </div>
         </form>
