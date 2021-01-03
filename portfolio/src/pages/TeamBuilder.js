@@ -12,6 +12,7 @@ function TeamBuilder() {
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const [team1, setTeam1] = useState([]);
   const [team2, setTeam2] = useState([]);
+  const [tgText, setTgText] = useState('');
 
   const ref = firebase.firestore().collection('users');
 
@@ -64,28 +65,29 @@ function TeamBuilder() {
   const generateTeams = (event) => {
     event.preventDefault();
 
+    let a = '';
+    let b = '';
     setTeam1([]);
     setTeam2([]);
     // Sort with skill level
     setSelectedPlayers(selectedPlayers.sort((a, b) => (a.skillLevel > b.skillLevel ? 1 : b.skillLevel > a.skillLevel ? -1 : 0)));
-    // console.log(selectedPlayers);
 
     for (let index = 0; index < selectedPlayers.length; index++) {
-      console.log('Index is: ' + index);
-
       if (index % 2 === 0) {
-        console.log('Team 1 ');
+        a += selectedPlayers[index].name + '\n';
         setTeam1((team1) => [...team1, selectedPlayers[index]]);
       } else {
-        console.log('Team 2 ');
+        b += selectedPlayers[index].name + '\n';
         setTeam2((team2) => [...team2, selectedPlayers[index]]);
       }
+
+      setTgText('Team 1 (Black shirt):\n' + a + '\nTeam 2 (White shirt):\n' + b);
     }
   };
   return (
     <div id='teambuilder'>
       <NavigationBar></NavigationBar>
-      <div style={{ backgroundColor: 'blueviolet', height: 80 }}></div>
+      <div style={{ backgroundColor: 'black', height: 80 }}></div>
       <div>
         <form style={{ margin: 20 }}>
           <label>Add Player: </label>
@@ -198,15 +200,10 @@ function TeamBuilder() {
               ))}
             </div>
             <div style={{ width: '20%' }}>
-              <h3>Generated Text</h3>
-              <b>Team 1 (Black shirt):</b>
-              {team1.map((player) => (
-                <h5>{player.name}</h5>
-              ))}
-              <b> Team 2 (White shirt):</b>
-              {team2.map((player) => (
-                <h5>{player.name}</h5>
-              ))}
+              <h3>Text to Telegram</h3>
+              <form>
+                <textarea rows='15' value={tgText} onChange={(e) => setTgText(e.target.value)} />
+              </form>
             </div>
           </div>
         </form>
