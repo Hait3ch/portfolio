@@ -18,6 +18,16 @@ function TeamBuilder() {
 
   const ref = firebase.firestore().collection('users');
 
+  function compare(a, b) {
+    if (parseInt(a.skillLevel) < parseInt(b.skillLevel)) {
+      return -1;
+    }
+    if (parseInt(a.skillLevel) > parseInt(b.skillLevel)) {
+      return 1;
+    }
+    return 0;
+  }
+
   function copyToClipboard(e) {
     e.preventDefault();
     textAreaRef.current.select();
@@ -48,21 +58,26 @@ function TeamBuilder() {
       const data = { name: name, skillLevel: skillLevel, uuid4: uuid() };
       await axios
         .post(
-          'http://localhost:5001/portfolio-2798d/us-central1/addUser?' +
+          // 'http://localhost:5001/portfolio-2798d/us-central1/addUser?' +
+          //   'name=' +
+          //   data.name +
+          //   '&skillLevel=' +
+          //   data.skillLevel +
+          //   '&uuid4=' +
+          //   data.uuid4
+          'https://us-central1-portfolio-2798d.cloudfunctions.net/addUser?' +
             'name=' +
             data.name +
             '&skillLevel=' +
             data.skillLevel +
             '&uuid4=' +
             data.uuid4
-          // "https://us-central1-portfolio-2798d.cloudfunctions.net/addUser?" +
-          //   "name=" +
-          //   data.name +
-          //   "&skillLevel=" +
-          //   data.skillLevel
         )
         .then((res) => {
           console.log('res', res);
+          setName('');
+          setSkillLevel('');
+          getPlayers();
           return;
         })
         .catch((error) => {
@@ -79,7 +94,14 @@ function TeamBuilder() {
     setTeam1([]);
     setTeam2([]);
     // Sort with skill level
-    setSelectedPlayers(selectedPlayers.sort((a, b) => (a.skillLevel > b.skillLevel ? 1 : b.skillLevel > a.skillLevel ? -1 : 0)));
+
+    console.log(selectedPlayers);
+
+    selectedPlayers.sort(compare);
+
+    setSelectedPlayers(selectedPlayers.sort((a, b) => compare(a, b)));
+
+    console.log(selectedPlayers);
 
     for (let index = 0; index < selectedPlayers.length; index++) {
       if (index % 2 === 0) {
