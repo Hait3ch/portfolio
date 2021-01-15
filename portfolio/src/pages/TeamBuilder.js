@@ -52,6 +52,7 @@ function TeamBuilder() {
     // eslint-disable-next-line
   }, []);
 
+  // Add player
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (name !== '') {
@@ -86,6 +87,47 @@ function TeamBuilder() {
     }
   };
 
+  function editPlayer(updatedPlayer) {
+    setLoading();
+    console.log('test edit' + updatedPlayer.name);
+    ref
+      .where('name', '==', updatedPlayer.name)
+      .get()
+      .then(() => {
+        console.log('test 2');
+
+        // setPlayers((prev) =>
+        //   prev.map((element) => {
+        //     if (element.id !== updatedPlayer.id) {
+        //       return element;
+        //     }
+        //     return updatedPlayer;
+        //   })
+        // );
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
+  //DELETE FUNCTION
+  function deletePlayer(player) {
+    ref
+      .where('name', '==', player.name)
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          doc.ref.delete();
+        });
+
+        //TODO: Change so that player does not move to next column
+        setPlayers((prev) => prev.filter((element) => element.name !== player.name));
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
   const generateTeams = (event) => {
     event.preventDefault();
 
@@ -95,13 +137,9 @@ function TeamBuilder() {
     setTeam2([]);
     // Sort with skill level
 
-    console.log(selectedPlayers);
-
     selectedPlayers.sort(compare);
 
     setSelectedPlayers(selectedPlayers.sort((a, b) => compare(a, b)));
-
-    console.log(selectedPlayers);
 
     for (let index = 0; index < selectedPlayers.length; index++) {
       if (index % 2 === 0) {
@@ -174,6 +212,9 @@ function TeamBuilder() {
                   <h4>
                     {player.name} {player.skillLevel}
                   </h4>
+                  <button onClick={() => editPlayer({ name: player.name, skillLevel: player.skillLevel })}>Edit</button>
+
+                  <button onClick={() => deletePlayer({ name: player.name, skillLevel: player.skillLevel })}>Del</button>
                 </div>
               ))}
             </div>
