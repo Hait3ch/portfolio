@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions , Typography } from "@material-ui/core";
+import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions , Typography,TextField } from "@material-ui/core";
 import Button from "react-bootstrap/Button";
 
 /**
@@ -43,6 +43,8 @@ export default class ConfirmDialog extends React.Component {
       onClose,
       onCancel,
       title,
+      field1,
+      field2,
       onConfirm} = this.props;
     return (
       <>
@@ -61,6 +63,13 @@ export default class ConfirmDialog extends React.Component {
             <DialogContentText id="alert-dialog-description" style={{ fontSize: "100%" }}>
               { text }
             </DialogContentText>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="Email Address"
+              type="email"
+              fullWidth />
           </DialogContent>
           <DialogActions>
             { (onCancel && cancelButtonText) &&
