@@ -1,7 +1,7 @@
-@import "bootstrap/dist/css/bootstrap.min.css";
-@import "~bootstrap/scss/_functions";
-@import "~bootstrap/scss/_variables";
-@import "bootstrap/scss/_mixins";
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import '~bootstrap/scss/_functions';
+@import '~bootstrap/scss/_variables';
+@import 'bootstrap/scss/_mixins';
 
 $primaryColor: #ffffff;
 $primaryRedColor: #e04b4b;
@@ -34,7 +34,7 @@ header {
 
 // BASIC TEXT STYLES
 p {
-  color: "#242424";
+  color: '#242424';
   font-size: 16px;
 }
 
@@ -204,28 +204,24 @@ html {
 .grid-50-text.show-on-scroll {
   opacity: 0;
   transform: translateX(-4em);
-  transition: transform 2s 0.25s cubic-bezier(0, 1, 0.3, 1),
-    opacity 0.3s 0.25s ease-out;
+  transition: transform 2s 0.25s cubic-bezier(0, 1, 0.3, 1), opacity 0.3s 0.25s ease-out;
 }
 
 .grid-50-text.show-on-scroll.is-visible {
   opacity: 1;
   transform: translateX(0em);
-  transition: transform 2s 0.25s cubic-bezier(0, 1, 0.3, 1),
-    opacity 0.3s 0.25s ease-out;
+  transition: transform 2s 0.25s cubic-bezier(0, 1, 0.3, 1), opacity 0.3s 0.25s ease-out;
 }
 
 .grid-img.show-on-scroll {
   opacity: 0;
   transform: translateX(-4em);
-  transition: transform 2s 0.25s cubic-bezier(0, 1, 0.3, 1),
-    opacity 0.3s 0.25s ease-out;
+  transition: transform 2s 0.25s cubic-bezier(0, 1, 0.3, 1), opacity 0.3s 0.25s ease-out;
 }
 .grid-img.show-on-scroll.is-visible {
   opacity: 1;
   transform: translateX(0em);
-  transition: transform 2s 0.25s cubic-bezier(0, 1, 0.3, 1),
-    opacity 0.3s 0.25s ease-out;
+  transition: transform 2s 0.25s cubic-bezier(0, 1, 0.3, 1), opacity 0.3s 0.25s ease-out;
 }
 
 // ****************************************************************************
@@ -583,4 +579,18 @@ html {
   margin-top: 10px;
   width: 150px;
   border: rgb(184, 184, 184) solid 1px;
+}
+
+.section {
+  display: flex;
+  margin-top: 20px;
+}
+
+.section .inner {
+  width: 20%;
+  border: 1px solid #888;
+  border-radius: 10px;
+  padding: 20px 10px;
+  margin-right: 3px;
+  margin-left: 3px;
 }

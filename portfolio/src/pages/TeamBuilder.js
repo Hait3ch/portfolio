@@ -3,6 +3,8 @@ import NavigationBar from '../components/Navbar';
 import axios from 'axios';
 import firebase from '../firebase-config';
 import { v4 as uuid } from 'uuid';
+import CreateNewUser from '../components/Modals/NewUser';
+import ConfirmDialog from '../components/Modals/ConfirmDialog';
 
 function TeamBuilder() {
   const [name, setName] = useState('');
@@ -15,6 +17,12 @@ function TeamBuilder() {
   const [tgText, setTgText] = useState('');
   const [copySuccess, setCopySuccess] = useState('');
   const textAreaRef = useRef(null);
+
+  // TODO: Make a rule that ask user an email address to be able to add users
+  // TODO: This confirm dialog is propably for editing user name and skill lvl
+  const [message, setMessage] = useState('');
+  const [confirmDialogTitle, setConfirmDialogTitle] = useState('');
+  const [isConfirmDialogOpen, setConfirmDialogOpen] = useState(false);
 
   const ref = firebase.firestore().collection('users');
 
@@ -87,15 +95,13 @@ function TeamBuilder() {
     }
   };
 
+  // TODO: Make popup that ask for changes and update database
   function editPlayer(updatedPlayer) {
     setLoading();
-    console.log('test edit' + updatedPlayer.name);
     ref
       .where('name', '==', updatedPlayer.name)
       .get()
       .then(() => {
-        console.log('test 2');
-
         // setPlayers((prev) =>
         //   prev.map((element) => {
         //     if (element.id !== updatedPlayer.id) {
@@ -120,8 +126,9 @@ function TeamBuilder() {
           doc.ref.delete();
         });
 
-        //TODO: Change so that player does not move to next column
+        //TODO: Fix this hack
         setPlayers((prev) => prev.filter((element) => element.name !== player.name));
+        setSelectedPlayers((selectedPlayers) => selectedPlayers.filter((selPlayer) => selPlayer.name !== player.name));
       })
       .catch((err) => {
         console.error(err);
@@ -159,7 +166,22 @@ function TeamBuilder() {
       <div style={{ backgroundColor: 'black', height: 80 }}></div>
       <div>
         <form style={{ margin: 20 }}>
-          <label>Add Player: </label>
+          <label>Add New Player: </label>
+          {/* <button
+            onClick={(e) => {
+              e.preventDefault();
+
+              setConfirmDialogOpen(true);
+            }}
+          >
+            test
+          </button>
+          <ConfirmDialog
+            positiveButtonText='Ok'
+            title={confirmDialogTitle}
+            open={isConfirmDialogOpen}
+            onConfirm={() => setConfirmDialogOpen(false)}
+          /> */}
           <label>
             Name:
             <input
@@ -197,8 +219,8 @@ function TeamBuilder() {
 
           {/* <input type="submit" value="Get" onClick={this.handleGetUsers} /> */}
           {/* {loading ? <h1>Loading...</h1> : <h1>Players loaded</h1>} */}
-          <div style={{ display: 'flex', marginTop: '20px' }}>
-            <div style={{ width: '20%' }}>
+          <div className='section'>
+            <div className='inner'>
               <h3>Players Available</h3>
               {players.map((player) => (
                 <div
@@ -220,7 +242,7 @@ function TeamBuilder() {
             </div>
 
             {/* SELECTED PLAYERS */}
-            <div style={{ width: '20%' }}>
+            <div className='inner'>
               <h3>Selected Players</h3>
               {selectedPlayers.map((selectedPlayer) => (
                 <div
@@ -237,7 +259,7 @@ function TeamBuilder() {
                 </div>
               ))}
             </div>
-            <div style={{ width: '20%' }}>
+            <div className='inner'>
               <h3>Team 1</h3>
               {team1.map((selectedPlayer) => (
                 <div
@@ -254,7 +276,7 @@ function TeamBuilder() {
                 </div>
               ))}
             </div>
-            <div style={{ width: '20%' }}>
+            <div className='inner'>
               <h3>Team 2</h3>
               {team2.map((selectedPlayer) => (
                 <div
@@ -271,7 +293,7 @@ function TeamBuilder() {
                 </div>
               ))}
             </div>
-            <div style={{ width: '20%' }}>
+            <div className='inner'>
               <h3>Text to Telegram</h3>
               <textarea style={{ width: '100%' }} rows='15' ref={textAreaRef} value={tgText} onChange={(e) => setTgText(e.target.value)} />
               <button style={{ width: '100%' }} onClick={copyToClipboard}>
