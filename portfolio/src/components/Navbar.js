@@ -28,11 +28,11 @@ function NavigationBar() {
           <Nav.Link href='#projects'>Projects</Nav.Link>
           <Nav.Link href='#contact'>Contact</Nav.Link>
         </Nav>
-        <Nav>
+        {/* <Nav>
           <Nav.Link as={Link} to='/teambuilder'>
             Team builder
           </Nav.Link>
-        </Nav>
+        </Nav> */}
       </Navbar.Collapse>
     </Navbar>
   );
