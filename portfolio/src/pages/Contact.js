@@ -1,117 +1,100 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import Button from "react-bootstrap/Button";
 import ConfirmDialog from "../components/Modals/ConfirmDialog";
 
-class Contact extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: "",
-      message: "",
-      confirmDialogTitle: "",
-      isConfirmDialogOpen: false,
-    };
+const Contact = () => {
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [confirmDialogTitle, setConfirmDialogTitle] = useState("");
+  const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
 
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-  handleInputChange(event) {
-    const target = event.target;
-    const name = target.name;
-    const value = target.value;
-
-    this.setState({
-      [name]: value,
-    });
-  }
-
-  async handleSubmit(event) {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const data = { email: this.state.email, message: this.state.message };
+    const data = { email, message };
 
     if (data.email.length < 5 && data.message.length < 5) {
-      this.setState({
-        isConfirmDialogOpen: true,
-        confirmDialogTitle: "Please fill both of the fields properly.",
-      });
+      setConfirmDialogTitle("Please fill both of the fields properly.");
+      setIsConfirmDialogOpen(true);
     } else {
-      this.setState({
-        isConfirmDialogOpen: true,
-        confirmDialogTitle:
-          "Thank you for sending a message. I will be in touch as soon as possible.",
-      });
+      setConfirmDialogTitle(
+        "Thank you for sending a message. I will be in touch as soon as possible."
+      );
+      setIsConfirmDialogOpen(true);
 
-      await axios
-        .post(
-          // "http://localhost:5001/portfolio-2798d/us-central1/submit?" +
-          //   "email=" +
-          //   data.email +
-          //   "&message=" +
-          //   data.message,
+      try {
+        const res = await axios.post(
           "https://us-central1-portfolio-2798d.cloudfunctions.net/submit?" +
             "email=" +
             data.email +
             "&message=" +
             data.message
-          // data // useless
-        )
-        .then((res) => {
-          console.log("res", res);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+        );
+        console.log("res", res);
+      } catch (error) {
+        console.log(error);
+      }
     }
-  }
+  };
 
-  render() {
-    const { isConfirmDialogOpen, confirmDialogTitle } = this.state;
+  return (
+    <section className="py-16 bg-gray-50" id="contact">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            Get in touch
+          </h1>
+          <p className="text-lg text-gray-600">I'd love to hear from you!</p>
+        </div>
 
-    return (
-      <section className="contact" id="contact">
-        <div className="container">
-          <h1>Get in touch</h1>
-          <form onSubmit={this.handleSubmit}>
-            <div className="cont">
-              <label className="label">Email:</label>
+        <form onSubmit={handleSubmit} className="max-w-2xl mx-auto">
+          <div className="space-y-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Email:
+              </label>
               <input
-                className="email-field"
+                className="input-field"
                 name="email"
                 type="email"
                 placeholder="email@example.com"
-                value={this.state.email}
-                onChange={this.handleInputChange}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
               />
-              <label className="label">Message:</label>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Message:
+              </label>
               <textarea
-                className="message-field"
+                className="input-field min-h-[120px] resize-vertical"
                 name="message"
                 placeholder="I am interested in your portfolio..."
-                type="text"
-                value={this.state.message}
-                onChange={this.handleInputChange}
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                required
               />
-              <Button
-                className="submit-button"
-                variant="danger btn-lg"
-                onClick={this.handleSubmit}
-              >
-                <b>Submit</b>
-              </Button>
             </div>
-          </form>
-          <ConfirmDialog
-            positiveButtonText="Ok"
-            title={confirmDialogTitle}
-            open={isConfirmDialogOpen}
-            onConfirm={() => this.setState({ isConfirmDialogOpen: false })}
-          />
-        </div>
-      </section>
-    );
-  }
-}
+
+            <div className="text-center">
+              <button type="submit" className="btn-primary text-lg px-8 py-3">
+                <b>Submit</b>
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <ConfirmDialog
+          positiveButtonText="Ok"
+          title={confirmDialogTitle}
+          open={isConfirmDialogOpen}
+          onConfirm={() => setIsConfirmDialogOpen(false)}
+        />
+      </div>
+    </section>
+  );
+};
 
 export default Contact;
