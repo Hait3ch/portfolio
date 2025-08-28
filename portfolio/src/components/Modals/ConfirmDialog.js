@@ -35,8 +35,6 @@ const ConfirmDialog = (props) => {
     onClose,
     onCancel,
     title,
-    field1,
-    field2,
     onConfirm,
   } = props;
 

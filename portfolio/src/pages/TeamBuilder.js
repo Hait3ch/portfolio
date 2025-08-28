@@ -12,8 +12,6 @@ import {
   doc,
 } from "firebase/firestore";
 import { v4 as uuid } from "uuid";
-import CreateNewUser from "../components/Modals/NewUser";
-import ConfirmDialog from "../components/Modals/ConfirmDialog";
 
 function TeamBuilder() {
   const [name, setName] = useState("");
@@ -26,12 +24,6 @@ function TeamBuilder() {
   const [tgText, setTgText] = useState("");
   const [copySuccess, setCopySuccess] = useState("");
   const textAreaRef = useRef(null);
-
-  // TODO: Make a rule that ask user an email address to be able to add users
-  // TODO: This confirm dialog is propably for editing user name and skill lvl
-  const [message, setMessage] = useState("");
-  const [confirmDialogTitle, setConfirmDialogTitle] = useState("");
-  const [isConfirmDialogOpen, setConfirmDialogOpen] = useState(false);
 
   const usersRef = collection(db, "users");
 
@@ -120,7 +112,7 @@ function TeamBuilder() {
     setLoading(true);
     try {
       const q = query(usersRef, where("name", "==", updatedPlayer.name));
-      const querySnapshot = await getDocs(q);
+      await getDocs(q);
       // setPlayers((prev) =>
       //   prev.map((element) => {
       //     if (element.id !== updatedPlayer.id) {
