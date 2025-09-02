@@ -566,31 +566,4 @@ html {
   }
 }
 
-// Team builder/Teambuilder
 
-.playerCard {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  // flex-direction: column;
-  // margin: 10px;
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-top: 10px;
-  width: 150px;
-  border: rgb(184, 184, 184) solid 1px;
-}
-
-.section {
-  display: flex;
-  margin-top: 20px;
-}
-
-.section .inner {
-  width: 20%;
-  border: 1px solid #888;
-  border-radius: 10px;
-  padding: 20px 10px;
-  margin-right: 3px;
-  margin-left: 3px;
-}

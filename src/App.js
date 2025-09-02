@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 
-import TeamBuilder from "./pages/TeamBuilder";
 import Root from "./pages/Root";
 
 function App() {
@@ -92,7 +91,6 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Root />} />
-        <Route path="/teambuilder" element={<TeamBuilder />} />
       </Routes>
     </BrowserRouter>
   );
